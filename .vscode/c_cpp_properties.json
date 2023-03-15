@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/cross-compiler/include"
+            ],
+            "defines": [],
+            "compilerPath": "${workspaceFolder}/cross-compiler/bin/i686-elf-g++",
+            "cStandard": "c17",
+            "cppStandard": "gnu++23"
+        }
+    ],
+    "version": 4
+}

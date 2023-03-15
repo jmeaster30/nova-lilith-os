@@ -2,3 +2,13 @@ CMakeFiles
 *.cmake
 CMakeCache.txt
 Makefile
+
+# cross-compiler
+cross-compiler/bin
+cross-compiler/build-binutils
+cross-compiler/build-gcc
+cross-compiler/i686-elf
+cross-compiler/include
+cross-compiler/lib
+cross-compiler/share
+cross-compiler/libexec
