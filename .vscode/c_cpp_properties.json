@@ -3,13 +3,21 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/src",
-                "${workspaceFolder}/cross-compiler/include"
+                "${workspaceFolder}/cross-compiler/lib/gcc/i686-elf/13.0.1/include"
             ],
             "defines": [],
             "compilerPath": "${workspaceFolder}/cross-compiler/bin/i686-elf-g++",
-            "cStandard": "c17",
-            "cppStandard": "gnu++23"
+            "cStandard": "c99",
+            "cppStandard": "gnu++23",
+            "compilerArgs": [
+                "-std=gnu99 ",
+                "-ffreestanding ",
+                "-O2 ",
+                "-Wall ",
+                "-Wextra"
+            ],
+            "intelliSenseMode": "${default}",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4
