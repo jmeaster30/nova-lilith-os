@@ -3,6 +3,8 @@ CMakeFiles
 CMakeCache.txt
 Makefile
 
+build/*
+
 # cross-compiler
 cross-compiler/bin
 cross-compiler/build-binutils
