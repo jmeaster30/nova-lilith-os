@@ -44,6 +44,12 @@ void Terminal::SetBackgroundColor(VgaColor color) {
 }
 
 void Terminal::PutChar(char c) {
+	if (c == 10) {
+    if (++terminal_row == VGA_HEIGHT)
+			terminal_row = 0;
+    terminal_column = 0;
+    return;
+  }
   PutCharAt(c, terminal_column, terminal_row);
 	if (++terminal_column == VGA_WIDTH) {
 		terminal_column = 0;

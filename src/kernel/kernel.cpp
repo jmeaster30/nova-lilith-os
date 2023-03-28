@@ -9,4 +9,6 @@ extern "C" void kernel_main(void)
 	auto term = Terminal::Terminal();
 	term.SetTextColor(Terminal::VgaColor::Red);
 	term.Write("THIS IS MY OPERATING SYSTEM\n");
+	term.SetTextColor(Terminal::VgaColor::White);
+	term.Write("Oh yeah this is cool");
 }
