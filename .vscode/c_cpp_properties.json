@@ -3,7 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/cross-compiler/lib/gcc/i686-elf/13.0.1/include"
+                "${workspaceFolder}/cross-compiler/lib/gcc/i686-elf/13.0.1/include",
+                "${workspaceFolder}/src/kernel"
             ],
             "defines": [],
             "compilerPath": "${workspaceFolder}/cross-compiler/bin/i686-elf-g++",

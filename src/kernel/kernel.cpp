@@ -2,13 +2,18 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "terminal/terminal.h"
- 
+#include <terminal/terminal.h>
+#include <libk/io.h>
+
+using namespace LibK;
+
 extern "C" void kernel_main(void) 
 {
-	auto term = Terminal::Terminal();
-	term.SetTextColor(Terminal::VgaColor::Red);
-	term.Write("THIS IS MY OPERATING SYSTEM\n");
-	term.SetTextColor(Terminal::VgaColor::White);
-	term.Write("Oh yeah this is cool");
+	Kernel::Terminal::Initialize();
+	
+	println("Oh baby this is a really incredible test");
+
+	int num = 12345;
+	auto color = Kernel::VgaColor::Red;
+	formatln("{color} LOOK AT THIS {color:reset} My Num: {color:blue}{}{color:reset}", color, num);
 }

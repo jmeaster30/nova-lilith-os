@@ -4,7 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-namespace Terminal {
+namespace Kernel {
 
   enum class VgaColor {
     Black = 0,
@@ -27,28 +27,13 @@ namespace Terminal {
 
   class Terminal {
   public:
-    Terminal();
+    static void Initialize();
+    static void SetTextColor(VgaColor color);
+    static void SetBackgroundColor(VgaColor color);
 
-    void SetTextColor(VgaColor color);
-    void SetBackgroundColor(VgaColor color);
-
-    void PutChar(char c);
-    void PutCharAt(char c, size_t x, size_t y);
-    void Write(const char* data);
-    void Write(const char* data, size_t size);
-  
-  private:
-    static const size_t VGA_WIDTH = 80;
-    static const size_t VGA_HEIGHT = 25;
-
-    size_t terminal_row;
-    size_t terminal_column;
-    uint8_t terminal_color;
-    VgaColor current_text_color;
-    VgaColor current_background_color;
-    uint16_t* terminal_buffer;
-
-    
+    static void PutChar(char c);
+    static void PutCharAt(char c, size_t x, size_t y);
+    static void Write(const char* data);
+    static void Write(const char* data, size_t size);
   };
-
 }

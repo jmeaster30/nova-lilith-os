@@ -1,11 +1,12 @@
 # nova-lilith-os
 
-I want to learn about operating systems so this is my toy operating system.
+I want to learn about operating systems so this is my toy operating system. I am following instructions from the [osdev wiki](https://wiki.osdev.org/). I am not super interested in following a particular standard but I do want to try to implement an exokernel. If I fail at the exokernel I'll just switch to a microkernel type architecture.
 
 ## Goals
 
 - Learn about how to develop a kernel
 - Learn about operating systems
+- Develop an exokernal maybe
 - Develop a functional operating system that I can run and use for programming on one of my computers
 
 ### Notes
