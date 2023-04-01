@@ -16,14 +16,12 @@ src/kernel \
 OBJECTS=$(SOURCES:.cpp=.o)
 LINK_OBJS=$(addprefix build/,$(OBJECTS))
 
-$(info linkobjects is $(LINK_OBJS))
-
 build/boot.o : src/boot.s
 	${XASM} src/boot.s -o build/boot.o
 
-.cpp.o : 
-	mkdir -p build/$(@D) $(INCLUDE)
-	$(XCC) -c $(CFLAGS) $(INCLUDE:%=-I %) $< -o build/$@
+.cpp.o :
+	mkdir -p build/$(@D)
+	$(XCC) -c $< -o build/$@ $(CFLAGS) $(INCLUDE:%=-I%)
 
 nova-lilith-os.bin : build build/boot.o ${OBJECTS} src/linker.ld
 	${XCC} -T src/linker.ld -o build/nova-lilith-os.bin ${LDFLAGS} build/boot.o ${LINK_OBJS} -lgcc
