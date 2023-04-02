@@ -15,5 +15,6 @@ extern "C" void kernel_main(void)
 
 	int num = 12345;
 	auto color = Kernel::VgaColor::Red;
-	formatln("{color} LOOK AT THIS {color:reset} My Num: {color:blue}{}{color:reset}", color, num);
+	auto str = "LOOK AT THIS";
+	formatln("{fg} {} {fg:reset} My Num: {fg:blue}{}{fg:reset}", color, str, num);
 }
