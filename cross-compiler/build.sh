@@ -1,5 +1,17 @@
 #!/bin/bash
 
+sd = ${PWD##*/}
+case sd in
+    "cross-compiler")
+        echo "Already in cross-compiler directory"
+        ;;
+    "nova-lilith-os")
+        echo "Not in cross-compiler directory"
+        cd cross-compiler
+        ;;
+esac
+
+#build cross-compiler
 export PREFIX="$(pwd)"
 export TARGET=i686-elf
 export PATH="$PREFIX/bin:$PATH"
@@ -23,3 +35,11 @@ make all-target-libgcc
 make install-gcc
 make install-target-libgcc
 cd ..
+case sd in
+    "cross-compiler")
+        echo "Started in cross-compiler directory"
+        ;;
+    "nova-lilith-os")
+        cd ..
+        ;;
+esac

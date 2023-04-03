@@ -29,10 +29,15 @@ nova-lilith-os.bin : build build/boot.o ${OBJECTS} src/linker.ld
 build :
 	mkdir build
 
-.PHONY: clean and-run
+.PHONY: clean and-run cross-compiler
 
 and-run : nova-lilith-os.bin
 	qemu-system-i386 -kernel build/nova-lilith-os.bin
+
+cross-compiler :
+	git submodule init
+	git submodule update
+	./cross-compiler/build.sh
 
 clean :
 	rm -rf build
