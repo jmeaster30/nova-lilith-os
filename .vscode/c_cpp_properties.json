@@ -11,7 +11,7 @@
             "cStandard": "c99",
             "cppStandard": "gnu++23",
             "compilerArgs": [
-                "-std=gnu99 ",
+                "-std=gnu++23",
                 "-ffreestanding ",
                 "-O2 ",
                 "-Wall ",

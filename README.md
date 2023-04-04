@@ -15,11 +15,25 @@ I want to learn about operating systems so this is my toy operating system. I am
 
 ### Build the cross-compiler
 
-The cross-compiler can be built with the makefile so you can just run the following command.
+#### Prerequisites
+
+The cross compiler is built from gcc and has some prerequisites before it can be built. If you are on a Debian-based linux then run the following command to get the proper prerequisites.
+
+> `sudo apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo`
+
+See the [GCC Cross-Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) on the osdev wiki for more info.
+
+#### Makefile
+
+The cross compiler can be built with the makefile so you can just run the following command.
 
 > `make cross-compiler`
 
-Or, it can be run with the build.sh file in the cross-compiler folder but you need to make sure you pull the submodules if you haven't already.
+This command updates the submodules and calls the ./cross-compiler/build.sh script in one command.
+
+#### Bash Script
+
+The cross compiler can be built with the build.sh file in the cross-compiler folder but you need to make sure you pull the submodules if you haven't already.
 
 > `git submodule init`
 > `git submodule update`
@@ -28,8 +42,6 @@ Once those are updated run the following commands.
 
 > `cd cross-compiler`
 > `./build.sh`
-
-I want this to be baked into the make file so all you need to do is a single command to build the os.
 
 ### Build and run the os in QEMU
 

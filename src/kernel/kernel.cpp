@@ -13,8 +13,15 @@ extern "C" void kernel_main(void)
 	
 	println("Oh baby this is a really incredible test");
 
-	int num = 12345;
-	auto color = Kernel::VgaColor::Red;
-	auto str = "LOOK AT THIS";
-	formatln("{fg} {} {fg:reset} My Num: {fg:blue}{}{fg:reset}", color, str, num);
+	auto test = "this is my string";
+	formatln("print string '%s'", test);
+
+	auto character = 'Q';
+	formatln("print char '%c'", character);
+
+	auto num = 12345;
+	formatln("print int '%i'", num);
+
+	auto bits = 12345;
+	formatln("print bits '%b'", bits);
 }
