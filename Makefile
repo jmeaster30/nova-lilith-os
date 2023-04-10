@@ -9,6 +9,7 @@ src/kernel/kernel.cpp \
 src/kernel/terminal/terminal.cpp \
 src/kernel/libk/abort.cpp \
 src/kernel/libk/io.cpp \
+src/kernel/descriptortable.cpp \
 
 INCLUDE= \
 src/kernel \

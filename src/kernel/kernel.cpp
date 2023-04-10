@@ -3,13 +3,17 @@
 #include <stdint.h>
 
 #include <terminal/terminal.h>
+#include <descriptortable.h>
 #include <libk/io.h>
 
 using namespace LibK;
 
+Kernel::GlobalDescriptorTable GlobalDescriptorTable;
+
 extern "C" void kernel_main(void) 
 {
 	Kernel::Terminal::Initialize();
+	GlobalDescriptorTable.Initialize();
 	
 	println("Oh baby this is a really incredible test");
 
