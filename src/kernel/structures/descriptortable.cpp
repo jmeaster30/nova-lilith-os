@@ -11,13 +11,25 @@ namespace Kernel {
 
     // Null descriptor
     table[size++] = SegmentDescriptor::Create(); // everything is default initialized to zero (I think)
-    
+
+    formatln("SegmentDescriptor: %i", size - 1);
+    formatln("\tBASE   %x", table[size - 1].GetBase());
+    formatln("\tLIMIT  %x", table[size - 1].GetLimit());
+    formatln("\tACCESS %x", table[size - 1].GetAccess());
+    formatln("\tFLAGS  %x", table[size - 1].GetFlags());
+
     // Kernel Mode Code Segment
     table[size++] = SegmentDescriptor::Create()
       .Base(0)
       .Limit(0xFFFFF)
       .Access(ACCESS_PRESENT | ACCESS_CODE_DATA_SEGMENT | ACCESS_EXECUTABLE | ACCESS_READ_WRITE)
       .Flags(FLAGS_PAGE_GRANULARITY | FLAGS_SIZE_SET);
+
+    formatln("SegmentDescriptor: %i", size - 1);
+    formatln("\tBASE   %x", table[size - 1].GetBase());
+    formatln("\tLIMIT  %x", table[size - 1].GetLimit());
+    formatln("\tACCESS %x", table[size - 1].GetAccess());
+    formatln("\tFLAGS  %x", table[size - 1].GetFlags());
 
     // Kernel Mode Data Segment
     table[size++] = SegmentDescriptor::Create()
@@ -26,6 +38,12 @@ namespace Kernel {
       .Access(ACCESS_PRESENT | ACCESS_CODE_DATA_SEGMENT | ACCESS_READ_WRITE)
       .Flags(FLAGS_PAGE_GRANULARITY | FLAGS_SIZE_SET);
 
+    formatln("SegmentDescriptor: %i", size - 1);
+    formatln("\tBASE   %x", table[size - 1].GetBase());
+    formatln("\tLIMIT  %x", table[size - 1].GetLimit());
+    formatln("\tACCESS %x", table[size - 1].GetAccess());
+    formatln("\tFLAGS  %x", table[size - 1].GetFlags());
+
     // User mode code segment
     table[size++] = SegmentDescriptor::Create()
       .Base(0)
@@ -33,12 +51,24 @@ namespace Kernel {
       .Access(ACCESS_PRESENT | ACCESS_RING_3 | ACCESS_CODE_DATA_SEGMENT | ACCESS_EXECUTABLE | ACCESS_READ_WRITE)
       .Flags(FLAGS_PAGE_GRANULARITY | FLAGS_SIZE_SET);
 
+    formatln("SegmentDescriptor: %i", size - 1);
+    formatln("\tBASE   %x", table[size - 1].GetBase());
+    formatln("\tLIMIT  %x", table[size - 1].GetLimit());
+    formatln("\tACCESS %x", table[size - 1].GetAccess());
+    formatln("\tFLAGS  %x", table[size - 1].GetFlags());
+
     // User mode data segment
     table[size++] = SegmentDescriptor::Create()
       .Base(0)
       .Limit(0xFFFFF)
       .Access(ACCESS_PRESENT | ACCESS_RING_3 | ACCESS_CODE_DATA_SEGMENT | ACCESS_READ_WRITE)
       .Flags(FLAGS_PAGE_GRANULARITY | FLAGS_SIZE_SET);
+
+    formatln("SegmentDescriptor: %i", size - 1);
+    formatln("\tBASE   %x", table[size - 1].GetBase());
+    formatln("\tLIMIT  %x", table[size - 1].GetLimit());
+    formatln("\tACCESS %x", table[size - 1].GetAccess());
+    formatln("\tFLAGS  %x", table[size - 1].GetFlags());
 
     // TODO add Task State Segment
 

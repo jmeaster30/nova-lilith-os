@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 #include <terminal/terminal.h>
-#include <descriptortable.h>
+#include <structures/descriptortable.h>
 #include <libk/io.h>
 
 using namespace LibK;
@@ -28,4 +28,8 @@ extern "C" void kernel_main(void)
 
 	auto bits = 12345;
 	formatln("print bits '%b'", bits);
+
+	auto hex = 0xdeadbeef;
+	formatln("print hex '%x'", hex);
+	formatln("print int '%i'", hex);
 }

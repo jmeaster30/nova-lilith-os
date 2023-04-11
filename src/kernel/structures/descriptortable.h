@@ -29,6 +29,20 @@ namespace Kernel {
     SegmentDescriptor Access(uint8_t access);
     SegmentDescriptor Flags(uint8_t flags);
 
+    inline uint32_t GetBase() {
+      return base1 | (base2 << 16) | (base3 << 24);
+    };
+    inline uint32_t GetLimit() {
+      return limit | ((limitFlags & 0x0F) << 16);
+    };
+    inline uint8_t  GetAccess() {
+      return access;
+    };
+    inline uint8_t  GetFlags() {
+      return (limitFlags >> 4) & 0x0F;
+    };
+
+
     // TODO System Segment Descriptor
     // TODO Long Mode System Segment Descriptor
 

@@ -23,8 +23,9 @@ namespace LibK {
     int remainder = i;
     bool foundStart = false;
 
-    if (i < 0) {
+    if (remainder < 0) {
       printchar('-');
+      remainder *= -1;
     }
 
     while (remainder > 0) {
@@ -43,10 +44,27 @@ namespace LibK {
   }
 
   void print_bits(unsigned int i) {
+    print("0b");
     int exp = 32;
     while (exp > 0) {
       printchar(((i >> exp) & 1) + 48);
       exp -= 1;
+    }
+  }
+
+  void print_hex(unsigned int i) {
+    print("0x");
+    int shift = 28;
+    while (shift >= 0) {
+      int value = (i >> shift) & 0xF;
+      if (value >= 0 && value < 10) {
+        printchar(value + 48);
+      } else if (value >= 10 && value < 16) {
+        printchar(value + 55);
+      } else {
+        printchar('.');
+      }
+      shift -= 4;
     }
   }
 
@@ -76,6 +94,9 @@ namespace LibK {
         } else if (current == 'b') {
           int i = va_arg(args, int);
           print_bits(i);
+        } else if (current == 'x') {
+          int i = va_arg(args, int);
+          print_hex(i);
         }
         foundPercent = false;
       } else {

@@ -57,6 +57,22 @@ void Terminal::PutChar(char c) {
   PutCharAt(c, terminal_column, terminal_row);
 }
 
+void shift_row() {
+	terminal_row = VGA_HEIGHT - 1;
+	for (unsigned int y = 1; y < VGA_HEIGHT; y++) {
+		for (unsigned int x = 0; x < VGA_WIDTH; x++) {
+			const size_t index1 = (y - 1) * VGA_WIDTH + x;
+			const size_t index2 = y * VGA_WIDTH + x;
+			terminal_buffer[index1] = terminal_buffer[index2];
+		}
+	}
+	unsigned int y = VGA_HEIGHT - 1;
+	for (unsigned int x = 0; x < VGA_WIDTH; x++) {
+		const size_t index = y * VGA_WIDTH + x;
+		terminal_buffer[index] = vga_entry(' ', vga_entry_color(VgaColor::White, VgaColor::Black));
+	}
+}
+
 void Terminal::PutCharAt(char c, size_t x, size_t y) {
 	if (c == 8) {
 		// how does backspace work at the beginning of the line
@@ -69,7 +85,7 @@ void Terminal::PutCharAt(char c, size_t x, size_t y) {
     if (terminal_column >= VGA_WIDTH - 4) {
 			terminal_column = terminal_column - (VGA_WIDTH - 4);
 			if (++terminal_row == VGA_HEIGHT)
-				terminal_row = 0;
+				shift_row();
 		} else {
 			terminal_column += 4;
 		}
@@ -77,7 +93,7 @@ void Terminal::PutCharAt(char c, size_t x, size_t y) {
   }
 	if (c == 10) {
     if (++terminal_row == VGA_HEIGHT)
-			terminal_row = 0;
+			shift_row();
     terminal_column = 0;
     return;
   }
@@ -90,7 +106,7 @@ void Terminal::PutCharAt(char c, size_t x, size_t y) {
 	if (++terminal_column == VGA_WIDTH) {
 		terminal_column = 0;
 		if (++terminal_row == VGA_HEIGHT) // TODO make this scroll
-			terminal_row = 0;
+			shift_row();
 	}
 }
 
