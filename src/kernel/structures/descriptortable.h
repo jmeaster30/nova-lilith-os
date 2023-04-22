@@ -22,12 +22,8 @@ namespace Kernel {
 
   class __attribute__ ((__packed__)) SegmentDescriptor {
   public:
-    static SegmentDescriptor Create() { return {}; };
-
-    SegmentDescriptor Limit(uint32_t limit);
-    SegmentDescriptor Base(uint32_t base);
-    SegmentDescriptor Access(uint8_t access);
-    SegmentDescriptor Flags(uint8_t flags);
+    SegmentDescriptor() {};
+    SegmentDescriptor(uint32_t base, uint32_t limit, uint8_t access, uint8_t flags);
 
     inline uint32_t GetBase() {
       return base1 | (base2 << 16) | (base3 << 24);
@@ -42,13 +38,10 @@ namespace Kernel {
       return (limitFlags >> 4) & 0x0F;
     };
 
-
     // TODO System Segment Descriptor
     // TODO Long Mode System Segment Descriptor
 
-    SegmentDescriptor() {};
   private:
-
     uint16_t limit = 0;
     uint16_t base1 = 0;
     uint8_t base2  = 0;

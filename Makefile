@@ -10,12 +10,19 @@ src/kernel/terminal/terminal.cpp \
 src/kernel/libk/abort.cpp \
 src/kernel/libk/io.cpp \
 src/kernel/structures/descriptortable.cpp \
+src/kernel/interrupts/interrupttable.cpp \
+src/kernel/interrupts/interrupthandler.cpp \
+src/kernel/interrupts/interruptwrapper.s \
 
 INCLUDE= \
 src/kernel \
 
-OBJECTS=$(SOURCES:.cpp=.o)
+CPP_OBJECTS=$(SOURCES:.cpp=.o)
+OBJECTS=$(CPP_OBJECTS:.s=.o)
 LINK_OBJS=$(addprefix build/,$(OBJECTS))
+
+$(info $$SOURCES is [${SOURCES}])
+$(info $$LINK_OBJS is [${LINK_OBJS}])
 
 build/boot.o : src/boot.s
 	${XASM} src/boot.s -o build/boot.o
@@ -23,6 +30,10 @@ build/boot.o : src/boot.s
 .cpp.o :
 	mkdir -p build/$(@D)
 	$(XCC) -c $< -o build/$@ $(CFLAGS) $(INCLUDE:%=-I%)
+
+.s.o :
+	mkdir -p build/$(@D)
+	$(XASM) $^ -o build/$@
 
 nova-lilith-os.bin : build build/boot.o ${OBJECTS} src/linker.ld
 	${XCC} -T src/linker.ld -o build/nova-lilith-os.bin ${LDFLAGS} build/boot.o ${LINK_OBJS} -lgcc

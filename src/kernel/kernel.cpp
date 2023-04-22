@@ -4,16 +4,21 @@
 
 #include <terminal/terminal.h>
 #include <structures/descriptortable.h>
+#include <interrupts/interrupttable.h>
 #include <libk/io.h>
 
 using namespace LibK;
 
 Kernel::GlobalDescriptorTable GlobalDescriptorTable;
+Kernel::InterruptDescriptorTable InterruptDescriptorTable;
 
 extern "C" void kernel_main(void) 
 {
+	asm("cli");
+
 	Kernel::Terminal::Initialize();
 	GlobalDescriptorTable.Initialize();
+	InterruptDescriptorTable.Initialize();
 	
 	println("Oh baby this is a really incredible test");
 
