@@ -1,6 +1,7 @@
 #include "interrupttable.h"
 
 #include <libk/io.h>
+#include <interrupts/pic.h>
 
 extern void* ISR0;
 extern void* ISR1;
@@ -15,6 +16,11 @@ namespace Kernel {
   }
   
   void InterruptDescriptorTable::Initialize() {
+    LibK::println("Initializing Interrupt Table...");
+
+    PIC::remap(0x20, 0x28);
+    PIC::setmask(0);
+
     for (int i = 0; i < 32; i++) {
       auto isr_addr = ((i * ((uint32_t)ISR1 - (uint32_t)ISR0)) + (uint32_t)ISR0);
       table[size++] = InterruptDescriptor((void*)isr_addr, (uint16_t) 0x08, 0x8E);

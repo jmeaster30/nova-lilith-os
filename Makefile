@@ -13,6 +13,7 @@ src/kernel/structures/descriptortable.cpp \
 src/kernel/interrupts/interrupttable.cpp \
 src/kernel/interrupts/interrupthandler.cpp \
 src/kernel/interrupts/interruptwrapper.s \
+src/kernel/interrupts/pic.cpp \
 
 INCLUDE= \
 src/kernel \

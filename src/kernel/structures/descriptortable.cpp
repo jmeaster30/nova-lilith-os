@@ -6,6 +6,7 @@ using namespace LibK;
 
 namespace Kernel {
   void GlobalDescriptorTable::Initialize() {
+    LibK::println("Initializing Global Descriptor Table...");
     // Using 32 bit Setup from https://wiki.osdev.org/GDT_Tutorial#Flat_.2F_Long_Mode_Setup
     size = 0;
 
