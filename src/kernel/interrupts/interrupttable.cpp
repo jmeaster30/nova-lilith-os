@@ -3,8 +3,7 @@
 #include <libk/io.h>
 #include <interrupts/pic.h>
 
-extern void* ISR0;
-extern void* ISR1;
+extern void* isr_stub_table[];
 
 namespace Kernel {
   InterruptDescriptor::InterruptDescriptor(void* isr, uint16_t selector, uint8_t flags) {
@@ -21,19 +20,19 @@ namespace Kernel {
     PIC::remap(0x20, 0x28);
     PIC::setmask(0);
 
+    size = 0;
     for (int i = 0; i < 32; i++) {
-      auto isr_addr = ((i * ((uint32_t)ISR1 - (uint32_t)ISR0)) + (uint32_t)ISR0);
-      table[size++] = InterruptDescriptor((void*)isr_addr, (uint16_t) 0x08, 0x8E);
+      table[size++] = InterruptDescriptor((void*)isr_stub_table[i], (uint16_t) 0x08, 0x8E);
     }
     
     idtDescriptor.base = (uintptr_t)table;
     idtDescriptor.limit = (size * sizeof(InterruptDescriptor)) - 1;
 
-    LibK::formatln("IDT TABLE ADDRESS:    %x", &table[0]);
-    LibK::formatln("IDT DESCRIPTOR BASE:  %x", idtDescriptor.base);
-    LibK::formatln("IDT DESCRIPTOR LIMIT: %i", idtDescriptor.limit);
+    //LibK::formatln("IDT TABLE ADDRESS:    %x", &table[0]);
+    //LibK::formatln("IDT DESCRIPTOR BASE:  %x", idtDescriptor.base);
+    //LibK::formatln("IDT DESCRIPTOR LIMIT: %i", idtDescriptor.limit);
 
-    asm ("LIDT %[idtd]" : : [idtd] "m" (idtDescriptor));
-    asm ("STI");
+    asm volatile ("LIDT %[idtd]" : : [idtd] "m" (idtDescriptor));
+    asm volatile ("STI");
   }
 }

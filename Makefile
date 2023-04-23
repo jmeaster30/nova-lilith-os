@@ -1,8 +1,9 @@
 XCC=./cross-compiler/bin/i686-elf-g++
 XASM=./cross-compiler/bin/i686-elf-as
 
-CFLAGS=-ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+CFLAGS=-ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -g
 LDFLAGS=-ffreestanding -O2 -nostdlib
+QEMUFLAGS=
 
 SOURCES= \
 src/kernel/kernel.cpp \
@@ -45,7 +46,7 @@ build :
 .PHONY: clean and-run cross-compiler
 
 and-run : nova-lilith-os.bin
-	qemu-system-i386 -kernel build/nova-lilith-os.bin
+	qemu-system-i386 ${QEMUFLAGS} -kernel build/nova-lilith-os.bin
 
 cross-compiler :
 	git submodule init

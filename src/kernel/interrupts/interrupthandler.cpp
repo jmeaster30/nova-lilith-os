@@ -1,21 +1,15 @@
 #include "interrupthandler.h"
 
-#include <libk/io.h>
+#include <terminal/terminal.h>
+#include <interrupts/pic.h>
 
 namespace Kernel {
   extern "C" void InterruptHandler(int interrupt) {
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    LibK::formatln("TEST");
-    asm volatile ("cli; hlt");
+    switch (interrupt) {
+      case 1: {
+        Terminal::PutChar('@');
+      }
+    }
+    PIC::sendeoi(interrupt);
   }
 }

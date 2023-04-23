@@ -19,7 +19,7 @@ extern "C" void kernel_main(void)
 	Kernel::Terminal::Initialize();
 	GlobalDescriptorTable.Initialize();
 	InterruptDescriptorTable.Initialize();
-	
+	/*
 	println("Oh baby this is a really incredible test");
 
 	auto test = "this is my string";
@@ -37,4 +37,27 @@ extern "C" void kernel_main(void)
 	auto hex = 0xdeadbeef;
 	formatln("print hex '%x'", hex);
 	formatln("print int '%i'", hex);
+	*/
+
+	println("Finished Kernel Setup");	
+
+	int i = 0;
+	char c = '|';
+	while (true) {
+		i++;
+		if (i == 4) {
+			i = 0;
+		}
+		if (i == 0) {
+			c = '|';
+		} else if (i == 1) {
+			c = '/';
+		} else if (i == 2) {
+			c = '-';
+		} else if (i == 3) {
+			c = '\\';
+		}
+		format("\r%c", c);
+		//asm("hlt");
+	}
 }
