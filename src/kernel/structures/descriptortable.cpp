@@ -24,7 +24,7 @@ namespace Kernel {
         0,
         0xFFFFF,
         ACCESS_PRESENT | ACCESS_CODE_DATA_SEGMENT | ACCESS_EXECUTABLE | ACCESS_READ_WRITE,
-        0xCF);
+        FLAGS_PAGE_GRANULARITY | FLAGS_SIZE_SET);
 
     //formatln("SegmentDescriptor: %i", size - 1);
     //format("\tBASE   %x", table[size - 1].GetBase());
@@ -37,7 +37,7 @@ namespace Kernel {
         0,
         0xFFFFF,
         ACCESS_PRESENT | ACCESS_CODE_DATA_SEGMENT | ACCESS_READ_WRITE,
-        0xCF);
+        FLAGS_PAGE_GRANULARITY | FLAGS_SIZE_SET);
 
     //formatln("SegmentDescriptor: %i", size - 1);
     //format("\tBASE   %x", table[size - 1].GetBase());
