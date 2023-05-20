@@ -1,6 +1,7 @@
 #include "interrupttable.h"
 
 #include <libk/io.h>
+#include <libk/asm.h>
 #include <interrupts/pic.h>
 
 extern void* isr_stub_table[];
@@ -22,17 +23,19 @@ namespace Kernel {
 
     size = 0;
     for (int i = 0; i < 32; i++) {
+      if (i < 18) {
+        LibK::formatln("[%i] %x", i, isr_stub_table[i]);
+      }
       table[size++] = InterruptDescriptor((void*)isr_stub_table[i], (uint16_t) 0x08, 0x8E);
     }
     
     idtDescriptor.base = (uintptr_t)table;
     idtDescriptor.limit = (size * sizeof(InterruptDescriptor)) - 1;
 
-    //LibK::formatln("IDT TABLE ADDRESS:    %x", &table[0]);
-    //LibK::formatln("IDT DESCRIPTOR BASE:  %x", idtDescriptor.base);
-    //LibK::formatln("IDT DESCRIPTOR LIMIT: %i", idtDescriptor.limit);
+    LibK::formatln("IDT TABLE ADDRESS:    %x", table);
+    LibK::formatln("IDT DESCRIPTOR BASE:  %x", idtDescriptor.base);
+    LibK::formatln("IDT DESCRIPTOR LIMIT: %i", idtDescriptor.limit);
 
     asm volatile ("LIDT %[idtd]" : : [idtd] "m" (idtDescriptor));
-    asm volatile ("STI");
   }
 }

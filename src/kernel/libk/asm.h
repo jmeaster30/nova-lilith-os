@@ -26,4 +26,12 @@ namespace LibK {
   static inline void iowait() {
     asm volatile ( "jmp 1f\n\t 1:jmp 2f\n\t 2:" );
   }
+
+  static inline void deactivate_interrupts() {
+    asm volatile ("CLI");
+  }
+
+  static inline void activate_interrupts() {
+    asm volatile ("STI");
+  }
 }

@@ -6,19 +6,29 @@
 #include <structures/descriptortable.h>
 #include <interrupts/interrupttable.h>
 #include <libk/io.h>
+#include <libk/asm.h>
 
 using namespace LibK;
 
 Kernel::GlobalDescriptorTable GlobalDescriptorTable;
 Kernel::InterruptDescriptorTable InterruptDescriptorTable;
 
-extern "C" void kernel_main(void) 
+extern "C" void kernel_init(void)
 {
-	asm("cli");
+	LibK::deactivate_interrupts();
 
 	Kernel::Terminal::Initialize();
 	GlobalDescriptorTable.Initialize();
 	InterruptDescriptorTable.Initialize();
+
+	LibK::activate_interrupts();
+
+	println("Finished Kernel Setup");	
+}
+
+extern "C" void kernel_main(void) 
+{
+
 	/*
 	println("Oh baby this is a really incredible test");
 
@@ -38,8 +48,6 @@ extern "C" void kernel_main(void)
 	formatln("print hex '%x'", hex);
 	formatln("print int '%i'", hex);
 	*/
-
-	println("Finished Kernel Setup");	
 
 	int i = 0;
 	char c = '|';

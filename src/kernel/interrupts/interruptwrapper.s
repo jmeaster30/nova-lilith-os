@@ -1,17 +1,16 @@
 .globl   isr_wrapper
 .align   4
- 
-isr_wrapper:
-    pushal
-    cld    //; C code following the sysV ABI requires DF to be clear on function entry
-    call InterruptHandler
-    popal
-    iret
 
 .macro isr_stub number
   ISR\number:
     mov $\number, %eax
-	  jmp isr_wrapper
+	  pushal
+    cld /* C code following the sysV ABI requires DF to be clear on function entry */
+    push %eax
+    call InterruptHandler
+    pop %eax
+    popal
+    iret
 .endm
 
 .macro isr_def number

@@ -28,15 +28,26 @@ namespace LibK {
       remainder *= -1;
     }
 
+    if (remainder == 0) {
+      printchar('0');
+      return;
+    }
+
     while (remainder > 0) {
       int value = (remainder / digitMask) % 10;
       if (!foundStart && value != 0) {
         foundStart = true;
       }
 
+      bool printzero = remainder > 9;
+
       if (foundStart) {
         printchar(value + 48);
         remainder %= digitMask;
+      }
+
+      if (remainder == 0 && printzero) {
+        printchar(48);
       }
       
       digitMask /= 10;

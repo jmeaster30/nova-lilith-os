@@ -11,7 +11,7 @@ namespace Kernel {
     size = 0;
 
     // Null descriptor
-    table[size++] = SegmentDescriptor(); // everything is default initialized to zero (I think)
+    table[size++] = SegmentDescriptor(0, 0, 0, 0); // everything is default initialized to zero (I think)
 
     //formatln("SegmentDescriptor: %i", size - 1);
     //format("\tBASE   %x", table[size - 1].GetBase());
@@ -79,6 +79,15 @@ namespace Kernel {
     gdtDescriptor.size = (uint16_t)((size * sizeof(SegmentDescriptor)) - 1);
     gdtDescriptor.location = &table[0];
     asm ("LGDT %[gdtd]" : : [gdtd] "m" (gdtDescriptor));
+
+    asm volatile(
+      "mov $0x10, %ax;"
+      "mov %ax, %ds;"
+      "mov %ax, %es;"
+      "mov %ax, %ss;"
+      "ljmp $0x8, $.1;"
+      ".1:"
+    );
   }
 
   SegmentDescriptor::SegmentDescriptor(uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {

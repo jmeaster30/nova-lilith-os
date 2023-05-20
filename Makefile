@@ -3,7 +3,10 @@ XASM=./cross-compiler/bin/i686-elf-as
 
 CFLAGS=-ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -g
 LDFLAGS=-ffreestanding -O2 -nostdlib
-QEMUFLAGS=
+QEMUFLAGS= \
+-display gtk \
+-monitor stdio \
+-s -S \
 
 SOURCES= \
 src/kernel/kernel.cpp \
@@ -15,6 +18,7 @@ src/kernel/interrupts/interrupttable.cpp \
 src/kernel/interrupts/interrupthandler.cpp \
 src/kernel/interrupts/interruptwrapper.s \
 src/kernel/interrupts/pic.cpp \
+src/kernel/keyboard/keyboard.cpp \
 
 INCLUDE= \
 src/kernel \
@@ -46,7 +50,8 @@ build :
 .PHONY: clean and-run cross-compiler
 
 and-run : nova-lilith-os.bin
-	qemu-system-i386 ${QEMUFLAGS} -kernel build/nova-lilith-os.bin
+	qemu-system-i386 ${QEMUFLAGS} -kernel build/nova-lilith-os.bin &
+	gdb vmlinux -ex 'target remote localhost:1234' -ex 'symbol-file build/nova-lilith-os.bin'
 
 cross-compiler :
 	git submodule init
