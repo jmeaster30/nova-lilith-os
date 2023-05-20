@@ -16,10 +16,7 @@ namespace Kernel {
   }
   
   void InterruptDescriptorTable::Initialize() {
-    LibK::println("Initializing Interrupt Table...");
-
-    PIC::remap(0x20, 0x28);
-    PIC::setmask(0);
+    LibK::println("Initializing Interrupt Descriptor Table...");
 
     size = 0;
     for (int i = 0; i < 32; i++) {

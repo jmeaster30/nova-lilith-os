@@ -7,7 +7,10 @@ namespace LibK {
   __attribute__((__noreturn__))
   void abort(void) {
     println("kernel: panic: abort()");
-    asm volatile("hlt");
+    asm volatile(
+      "cli;"
+      "hlt"
+    );
 
     while (1) {}
     __builtin_unreachable();

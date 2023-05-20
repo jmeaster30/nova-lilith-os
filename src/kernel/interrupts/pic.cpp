@@ -30,9 +30,9 @@
 namespace Kernel {
   namespace PIC {
     void sendeoi(unsigned char interrupt) {
+      LibK::outb(PIC1_COMMAND, PIC_EOI); 
       if (interrupt >= 8)
         LibK::outb(PIC2_COMMAND, PIC_EOI);
-      LibK::outb(PIC1_COMMAND, PIC_EOI); 
     }
 
     void remap(int offset1, int offset2) {

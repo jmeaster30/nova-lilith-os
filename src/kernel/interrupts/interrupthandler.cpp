@@ -1,11 +1,17 @@
 #include "interrupthandler.h"
 
 #include <libk/io.h>
+#include <libk/abort.h>
 #include <interrupts/pic.h>
 #include <keyboard/keyboard.h>
 #include <stdint.h>
 
 namespace Kernel {
+	extern "C" void ExceptionHandler(int interrupt) {
+		LibK::formatln("EXCEPTION: %x", interrupt);
+		LibK::abort();
+	}
+
   extern "C" void InterruptHandler(int interrupt) {
     switch (interrupt) {
       case 1: {
@@ -21,6 +27,10 @@ namespace Kernel {
 				}
 				break;
       }
+			case 13: {
+				LibK::formatln("General Protection Fault");
+				break;
+			}
 			default:
 				LibK::formatln("Unhandled interrupt '%i'", interrupt);
     }
