@@ -27,10 +27,6 @@ namespace Kernel {
 				}
 				break;
       }
-			case 13: {
-				LibK::formatln("General Protection Fault");
-				break;
-			}
 			default:
 				LibK::formatln("Unhandled interrupt '%i'", interrupt);
     }

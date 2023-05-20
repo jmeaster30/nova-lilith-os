@@ -13,8 +13,24 @@
     iret
 .endm
 
+.macro irq_stub number
+  IRQ\number:
+    mov $\number, %eax
+	  pushal
+    cld
+    push %eax
+    call InterruptHandler
+    pop %eax
+    popal
+    iret
+.endm
+
 .macro isr_def number
   .long ISR\number
+.endm
+
+.macro irq_def number
+  .long IRQ\number
 .endm
 
 .altmacro
@@ -22,6 +38,12 @@
 .set i,0
 .rept 32
     isr_stub %i
+    .set i, i+1
+.endr
+
+.set i,0
+.rept 16
+    irq_stub %i
     .set i, i+1
 .endr
 
@@ -33,3 +55,11 @@ isr_stub_table:
     isr_def %i
     .set i, i+1
 .endr
+.globl irq_stub_table
+irq_stub_table:
+.set i,0
+.rept 16
+    irq_def %i
+    .set i, i+1
+.endr
+

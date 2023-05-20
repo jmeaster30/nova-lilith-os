@@ -5,6 +5,7 @@
 #include <interrupts/pic.h>
 
 extern void* isr_stub_table[];
+extern void* irq_stub_table[];
 
 namespace Kernel {
   InterruptDescriptor::InterruptDescriptor(void* isr, uint16_t selector, uint8_t flags) {
@@ -18,12 +19,16 @@ namespace Kernel {
   void InterruptDescriptorTable::Initialize() {
     LibK::println("Initializing Interrupt Descriptor Table...");
 
+    PIC::remap(0x20, 0x28);
+    PIC::setmask(0);
+
     size = 0;
     for (int i = 0; i < 32; i++) {
-      if (i < 18) {
-        LibK::formatln("[%i] %x", i, isr_stub_table[i]);
-      }
       table[size++] = InterruptDescriptor((void*)isr_stub_table[i], (uint16_t) 0x08, 0x8E);
+    }
+
+    for (int i = 0; i < 16; i++) {
+      table[size++] = InterruptDescriptor((void*)irq_stub_table[i], (uint16_t) 0x08, 0x8E);
     }
     
     idtDescriptor.base = (uintptr_t)table;
