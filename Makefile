@@ -6,7 +6,6 @@ LDFLAGS=-ffreestanding -O2 -nostdlib
 QEMUFLAGS= \
 -display gtk \
 -monitor stdio \
--s -S \
 
 SOURCES= \
 src/kernel/kernel.cpp \
@@ -47,10 +46,13 @@ nova-lilith-os.bin : build build/boot.o ${OBJECTS} src/linker.ld
 build :
 	mkdir build
 
-.PHONY: clean and-run cross-compiler
+.PHONY: clean and-debug and-run cross-compiler
 
 and-run : nova-lilith-os.bin
-	qemu-system-i386 ${QEMUFLAGS} -kernel build/nova-lilith-os.bin &
+	qemu-system-i386 ${QEMUFLAGS} -kernel build/nova-lilith-os.bin
+
+and-debug : nova-lilith-os.bin
+	qemu-system-i386 ${QEMUFLAGS} -s -S -kernel build/nova-lilith-os.bin &
 	gdb vmlinux -ex 'target remote localhost:1234' -ex 'symbol-file build/nova-lilith-os.bin'
 
 cross-compiler :

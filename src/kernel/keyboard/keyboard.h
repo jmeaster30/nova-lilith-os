@@ -2,9 +2,16 @@
 
 #include <stdint.h>
 
+// TODO This will be moved to the userland LibOS
+
 namespace Kernel {
   class Keyboard {
   public:
+    enum KeyState {
+      PRESSED,
+      RELEASED
+    };
+
     enum ScanCode {
       SET_1, SET_2, SET_3
     };

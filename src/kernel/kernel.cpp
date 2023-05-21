@@ -49,23 +49,7 @@ extern "C" void kernel_main(void)
 	formatln("print int '%i'", hex);
 	*/
 
-	int i = 0;
-	char c = '|';
 	while (true) {
-		i++;
-		if (i == 4) {
-			i = 0;
-		}
-		if (i == 0) {
-			c = '|';
-		} else if (i == 1) {
-			c = '/';
-		} else if (i == 2) {
-			c = '-';
-		} else if (i == 3) {
-			c = '\\';
-		}
-		format("\r%c", c);
-		//asm("hlt");
+		asm("hlt");
 	}
 }

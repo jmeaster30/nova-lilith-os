@@ -6,9 +6,9 @@ static const char keySet1[ ] =
 {
 	//'\0' /*unused*/, '\0' /*L GUI*/, '\0' /*R CTRL*/, '\0' /*R GUI*/, '\0' /*R ALT*/, '\0' /*APPS*/, '\0' /*PRNT SCRN*/, '\0' /*PAUSE*/, '\0' /*INSERT*/, '\0' /*HOME*/, '\0' /*PG UP*/, '\0' /*DELETE*/, '\0' /*END*/, '\0' /*PG DN*/, '\0' /*U ARROW*/, '\0' /*L ARROW*/, '\0' /*D ARROW*/, '\0' /*R ARROW*/, '\0' /*KP /*/, '\0' /*KP EN*/, /*multi scancode, not in correct place in array*/
 	'\0'/*unused*/, '\0' /*ESC*/, '1', '2', '3', '4', '5', '6', '7',
-	'8', '9', '0', '-', '=', '\0' /*BKSP*/, '\0' /*TAB*/, 'q', 'w',
+	'8', '9', '0', '-', '=', '\b' /*BKSP*/, '\t' /*TAB*/, 'q', 'w',
 	'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']',
-	'\0' /*ENTER*/, '\0' /*L CTRL*/, 'a', 's', 'd', 'f', 'g', 'h',
+	'\n' /*ENTER*/, '\0' /*L CTRL*/, 'a', 's', 'd', 'f', 'g', 'h',
 	'j', 'k', 'l', ';', '\'', '`', '\0' /*L SHFT*/, '\\', 'z', 'x',
 	'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\0' /*R SHFT*/,
 	'\0' /*KP **/, '\0' /*L ALT*/, ' ' /*SPACE*/, '\0' /*CAPS*/,
