@@ -12,6 +12,7 @@ src/kernel/kernel.cpp \
 src/kernel/terminal/terminal.cpp \
 src/kernel/libk/abort.cpp \
 src/kernel/libk/io.cpp \
+src/kernel/libk/ringbuffer.cpp \
 src/kernel/structures/descriptortable.cpp \
 src/kernel/interrupts/interrupttable.cpp \
 src/kernel/interrupts/interrupthandler.cpp \

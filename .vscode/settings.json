@@ -2,7 +2,31 @@
     "editor.tabSize": 2,
     "cmake.configureOnOpen": true,
     "files.associations": {
-        "cstdint": "c"
+        "cstdint": "c",
+        "*.inc": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp",
+        "internet": "cpp",
+        "io_context": "cpp",
+        "string_view": "cpp",
+        "rope": "cpp",
+        "slist": "cpp",
+        "array": "cpp",
+        "chrono": "cpp",
+        "format": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "stacktrace": "cpp",
+        "valarray": "cpp",
+        "regex": "cpp",
+        "initializer_list": "cpp"
     },
     
 }
