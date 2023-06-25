@@ -28,8 +28,6 @@ extern "C" void kernel_init(void)
 
 extern "C" void kernel_main(void) 
 {
-
-	/*
 	println("Oh baby this is a really incredible test");
 
 	auto test = "this is my string";
@@ -47,7 +45,6 @@ extern "C" void kernel_main(void)
 	auto hex = 0xdeadbeef;
 	formatln("print hex '%x'", hex);
 	formatln("print int '%i'", hex);
-	*/
 
 	while (true) {
 		asm("hlt");

@@ -26,7 +26,9 @@
         "stacktrace": "cpp",
         "valarray": "cpp",
         "regex": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "buffer": "cpp",
+        "socket": "cpp"
     },
     
 }

@@ -19,19 +19,31 @@ src/kernel/interrupts/interrupthandler.cpp \
 src/kernel/interrupts/interruptwrapper.s \
 src/kernel/interrupts/pic.cpp \
 src/kernel/keyboard/keyboard.cpp \
+src/kernel/memory/pagetableentry.cpp \
+src/kernel/memory/pagedirectoryentry.cpp \
 
 INCLUDE= \
 src/kernel \
 
 CPP_OBJECTS=$(SOURCES:.cpp=.o)
 OBJECTS=$(CPP_OBJECTS:.s=.o)
-LINK_OBJS=$(addprefix build/,$(OBJECTS))
+CRTBEGIN_OBJ:=$(shell $(XCC) $(CFLAGS) -print-file-name=crtbegin.o)
+CRTEND_OBJ:=$(shell $(XCC) $(CFLAGS) -print-file-name=crtend.o)
+CRTI_OBJ=build/crti.o
+CRTN_OBJ=build/crtn.o
+LINK_OBJS=$(CRTI_OBJ) $(CRTBEGIN_OBJ) $(addprefix build/,$(OBJECTS)) $(CRTEND_OBJ) $(CRTN_OBJ)
 
 $(info $$SOURCES is [${SOURCES}])
 $(info $$LINK_OBJS is [${LINK_OBJS}])
 
 build/boot.o : src/boot.s
 	${XASM} src/boot.s -o build/boot.o
+
+build/crti.o : src/kernel/crti.s
+	${XASM} src/kernel/crti.s -o build/crti.o
+
+build/crtn.o : src/kernel/crtn.s
+	${XASM} src/kernel/crtn.s -o build/crtn.o
 
 .cpp.o :
 	mkdir -p build/$(@D)
@@ -41,7 +53,7 @@ build/boot.o : src/boot.s
 	mkdir -p build/$(@D)
 	$(XASM) $^ -o build/$@
 
-nova-lilith-os.bin : build build/boot.o ${OBJECTS} src/linker.ld
+nova-lilith-os.bin : build build/boot.o build/crti.o build/crtn.o ${OBJECTS} src/linker.ld
 	${XCC} -T src/linker.ld -o build/nova-lilith-os.bin ${LDFLAGS} build/boot.o ${LINK_OBJS} -lgcc
 
 build :

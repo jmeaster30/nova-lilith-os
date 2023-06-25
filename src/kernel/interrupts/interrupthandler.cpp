@@ -17,6 +17,10 @@ namespace Kernel {
 
   extern "C" void InterruptHandler(int interrupt) {
     switch (interrupt) {
+			case 0: {
+				LibK::print("timer");
+				break;
+			}
       case 1: {
         uint8_t scanCode = Keyboard::getscancode();
 				uint8_t key = Keyboard::getkey(scanCode, 0);
