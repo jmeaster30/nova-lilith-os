@@ -9,7 +9,7 @@
     .endif
     push $\number
 
-    pusha
+    pushal
     push %ds
     push %es
     push %fs
@@ -27,8 +27,8 @@
     pop %fs
     pop %es
     pop %ds
-    popa
-    add %esp, 8
+    popal
+    //add %esp, 32
     iret
 .endm
 
@@ -37,7 +37,7 @@
     push 0
     push $\number
 
-    pusha
+    pushal
     push %ds
     push %es
     push %fs
@@ -55,8 +55,8 @@
     pop %fs
     pop %es
     pop %ds
-    popa
-    add %esp, 8
+    popal
+    //add %esp, 32
     iret
 .endm
 

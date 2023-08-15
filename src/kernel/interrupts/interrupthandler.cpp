@@ -45,19 +45,25 @@ const char *exception_messages[] = {
 };
 
 namespace Kernel {
-	extern "C" void ExceptionHandler(struct Registers *registers) {
-		const char * message = registers->int_no < 32 ? exception_messages[registers->int_no] : "Unknown Exception :(";
-		LibK::formatln("\nEXCEPTION %x '%s'", registers->int_no, exception_messages[registers->int_no]);
+	void dump_register_info(const struct Registers *registers) {
 		LibK::formatln("Interrupt   %x  Error Code  %x", registers->int_no, registers->err_code);
 		LibK::formatln("EFlags      %x  UseResp     %x", registers->eflags, registers->useresp);
-		LibK::formatln("GS  %x  FS  %x  ES  %x  DS  %x", registers->gs, registers->fs, registers->es, registers->ds);
+		LibK::formatln("DS  %x  ES  %x  FS  %x  GS  %x", registers->ds, registers->es, registers->fs, registers->gs);
 		LibK::formatln("EAX %x  EBX %x  ECX %x  EDX %x", registers->eax, registers->ebx, registers->ecx, registers->edx);
 		LibK::formatln("EDI %x  ESI %x  EBP %x  ESP %x", registers->edi, registers->esi, registers->ebp, registers->esp);
 		LibK::formatln("EIP %x  CS  %x  SS  %x", registers->eip, registers->cs, registers->ss);
+	}
+
+	extern "C" void ExceptionHandler(const struct Registers *registers) {
+		const char * message = registers->int_no < 32 ? exception_messages[registers->int_no] : "Unknown Exception :(";
+		LibK::formatln("\nEXCEPTION %x '%s'", registers->int_no, message);
+		dump_register_info(registers);
 		LibK::abort();
 	}
 
-  extern "C" void InterruptHandler(struct Registers *registers) {
+  extern "C" void InterruptHandler(const struct Registers *registers) {
+		LibK::println("Starting Interrupt Handler");
+		dump_register_info(registers);
     switch (registers->int_no) {
 			case 0: {
 				LibK::print("timer");
@@ -80,5 +86,6 @@ namespace Kernel {
 				LibK::formatln("Unhandled interrupt '%i'", registers->int_no);
     }
     PIC::sendeoi(registers->int_no);
+		LibK::println("\nExiting Interrupt Handler");
   }
 }
